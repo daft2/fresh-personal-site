@@ -12,7 +12,6 @@ import {
   GraphQLClient,
 } from "https://deno.land/x/graphql_request@v4.1.0/mod.ts";
 import { Handlers, PageProps } from "$fresh/server.ts";
-import "https://deno.land/std@0.146.0/dotenv/load.ts";
 
 interface Portfolio {
   id: string;

@@ -1,0 +1,92 @@
+/** @jsx h */
+import { h } from "preact";
+import { tw } from "@twind";
+import Navbar from "../components/Navbar.tsx";
+import Hero from "../components/Hero.tsx";
+import RecentWork from "../components/RecentWork.tsx";
+import About from "../components/About.tsx";
+import Contact from "../components/Contact.tsx";
+import MobileNav from "../components/MobileNav.tsx";
+import {
+  gql,
+  GraphQLClient,
+} from "https://deno.land/x/graphql_request@v4.1.0/mod.ts";
+import { Handlers, PageProps } from "$fresh/server.ts";
+import { config } from "https://deno.land/x/dotenv@v3.2.0/mod.ts";
+
+interface Portfolio {
+  id: string;
+  title: string;
+  description: string;
+  thumbnail: {
+    url: string;
+  };
+  link: string;
+}
+
+const env = config();
+
+const query = gql`
+  query {
+    allPortfolios(first: "3") {
+      id
+      title
+      description
+      thumbnail {
+        url
+      }
+      link
+    }
+  }
+`;
+
+export const handler: Handlers<Portfolio[] | null> = {
+  async GET(_, ctx) {
+    const endpoint = "https://graphql.datocms.com";
+    const client = new GraphQLClient(endpoint, {
+      headers: {
+        "content-type": "application/json",
+        authorization: "Bearer " + env.DATOCMS_API_KEY,
+      },
+    });
+
+    const res = await client.request(query);
+
+    if (res.status === 404) {
+      return ctx.render(null);
+    }
+    const data: Portfolio[] = await res.allPortfolios;
+    return ctx.render(data);
+  },
+};
+
+export default function Home({ data }: PageProps<Portfolio[] | null>) {
+  return (
+    <div>
+      <MobileNav />
+      <div className={tw`px-8 lg:px-40 bg-theme-light`}>
+        <Navbar />
+        <Hero />
+      </div>
+      <RecentWork data={data} />
+      <About />
+      <Contact />
+      <div
+        className={tw`flex flex-col bg-theme-light py-4 justify-center items-center`}
+      >
+        <span className={tw`text-sm`}>
+          {"Made Using Fresh and Twind (TailwindCSS)."}
+        </span>
+        <div>
+          <a href="https://github.com/daft2/fresh-personal-site/blob/master/LICENSE">
+            <span
+              className={tw`text-sm underline-offset-1 underline hover:text-gray-600`}
+            >
+              {"Copyright (c) 2022 Daft"}
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -1,11 +1,3 @@
-# fresh project
+# Personal Site
 
-### Usage
-
-Start the project:
-
-```
-deno task start
-```
-
-This will watch the project directory and restart as necessary.
+Personal website made using Fresh, Twind (TailwindCSS) and DatoCMS

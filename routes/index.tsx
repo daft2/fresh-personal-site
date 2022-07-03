@@ -12,7 +12,7 @@ import {
   GraphQLClient,
 } from "https://deno.land/x/graphql_request@v4.1.0/mod.ts";
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { config } from "https://deno.land/std@0.146.0/dotenv/mod.ts";
+import "https://deno.land/std@0.146.0/dotenv/load.ts";
 
 interface Portfolio {
   id: string;
@@ -40,13 +40,12 @@ const query = gql`
 
 export const handler: Handlers<Portfolio[] | null> = {
   async GET(_, ctx) {
-    const env = await config();
-
+    const API_KEY = Deno.env.get("DATOCMS_API_KEY");
     const endpoint = "https://graphql.datocms.com";
     const client = new GraphQLClient(endpoint, {
       headers: {
         "content-type": "application/json",
-        authorization: "Bearer " + env.DATOCMS_API_KEY,
+        authorization: "Bearer " + API_KEY,
       },
     });
 

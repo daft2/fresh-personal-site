@@ -40,7 +40,7 @@ const query = gql`
 
 export const handler: Handlers<Portfolio[] | null> = {
   async GET(_, ctx) {
-    const API_KEY = Deno.env.get("DATOCMS_API_KEY");
+    const API_KEY = await Deno.env.get("DATOCMS_API_KEY");
     const endpoint = "https://graphql.datocms.com";
     const client = new GraphQLClient(endpoint, {
       headers: {

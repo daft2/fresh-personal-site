@@ -8,13 +8,13 @@ const Navbar = () => {
       className={tw`hidden sm:flex flex-row gap-4 justify-center items-center font-semibold py-2`}
     >
       <a
-        href="#home"
+        href="/"
         className={tw`text-gray-800 hover:bg-yellow-500 hover:bg-opacity-25 rounded px-4 py-2 `}
       >
         Home
       </a>
       <a
-        href="#works"
+        href="/works"
         className={tw`text-gray-800 hover:bg-yellow-500 hover:bg-opacity-25 rounded px-4 py-2 `}
       >
         Works

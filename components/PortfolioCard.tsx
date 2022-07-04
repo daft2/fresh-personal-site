@@ -15,7 +15,7 @@ interface Portfolio {
 const PortfolioCard = ({ data }: { data: Portfolio | undefined }) => {
   return (
     <div
-      className={tw`bg-card-theme rounded-lg font-sans flex flex-col lg:flex-row justify-around items-center lg:items-start`}
+      className={tw`bg-card-theme shadow-lg rounded-lg font-sans flex flex-col lg:flex-row justify-around items-center lg:items-start`}
     >
       <div
         className={tw`flex flex-col lg:w-1/4 w-full p-4 lg:p-0 justify-center my-auto gap-4`}
@@ -27,7 +27,7 @@ const PortfolioCard = ({ data }: { data: Portfolio | undefined }) => {
         <a
           href={data?.link}
           target="_blank"
-          className={tw`text-blue-800 font-semibold`}
+          className={tw`text-blue-800 hover:text-blue-500 font-semibold`}
         >
           Demo Live Site
         </a>

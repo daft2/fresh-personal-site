@@ -7,6 +7,7 @@ import RecentWork from "../components/RecentWork.tsx";
 import About from "../components/About.tsx";
 import Contact from "../components/Contact.tsx";
 import MobileNav from "../components/MobileNav.tsx";
+import Footer from "../components/Footer.tsx";
 import {
   gql,
   GraphQLClient,
@@ -69,22 +70,7 @@ export default function Home({ data }: PageProps<Portfolio[] | null>) {
       <RecentWork data={data} />
       <About />
       <Contact />
-      <div
-        className={tw`flex flex-col bg-theme-light py-4 justify-center items-center`}
-      >
-        <span className={tw`text-sm`}>
-          {"Made Using Fresh and Twind (TailwindCSS)."}
-        </span>
-        <div>
-          <a href="https://github.com/daft2/fresh-personal-site/blob/master/LICENSE">
-            <span
-              className={tw`text-sm underline-offset-1 underline hover:text-gray-600`}
-            >
-              {"Copyright (c) 2022 Daft"}
-            </span>
-          </a>
-        </div>
-      </div>
+      <Footer />
     </div>
   );
 }
